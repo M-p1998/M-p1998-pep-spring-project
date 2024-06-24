@@ -38,27 +38,10 @@ public class MessageService {
         }
 
     }
+
+    public List<Message> getAllMessages(Message msg){
+        return msgRepo.findAll();
+    }
     
 
 }
-//  // Check if postedBy (account) exists
-//  Optional<Account> accountOptional = accRepo.findById(msg.getPostedBy());
-//  if (accountOptional.isEmpty()) {
-//      return null; // Return null if account does not exist
-//  }
-
-// public Message postMessage(Message message){
-//     if (message.getMessage_text().trim().equals("") || message.getMessage_text().length()>254){
-//         return null;
-//     }
-//     List<Account> account = accountRepository.findAll();
-//     for (Account checkedAcount : account){
-//         if (checkedAcount.getAccount_id().equals(message.getPosted_by())){
-//             return messageRepository.save(message);
-//         }
-//     }
-    
-//         return null;
-    
-
-// }
