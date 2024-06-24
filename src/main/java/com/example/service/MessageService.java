@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,6 +77,19 @@ public class MessageService {
         }else{
             return null;
         }
+    }
+
+    public List<Message> getMessageByAccountId(int accId){
+        List<Message> messages = msgRepo.findAll();
+        List<Message> getMsg = new ArrayList<>();
+        for(Message msg : messages){
+            if(msg.getPostedBy().equals(accId)){
+                getMsg.add(msg);
+            }
+        }
+
+        return getMsg;
+
     }
 
 }
