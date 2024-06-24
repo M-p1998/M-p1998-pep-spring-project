@@ -22,7 +22,6 @@ public class Account {
      */
     private String username;
     /**
-     * A password for this account (must be over 4 characters)
      */
     private String password;
     /**
