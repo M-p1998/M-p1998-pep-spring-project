@@ -24,9 +24,11 @@ public class SocialMediaController  {
 
     @Autowired
     public AccountService accountService;
+    @Autowired
+    public MessageService messageService;
 
     @PostMapping("/register")
-    public @ResponseBody ResponseEntity<Account> RegisterValidation(@RequestBody Account acc){
+    public @ResponseBody ResponseEntity<Account> registerValidation(@RequestBody Account acc){
         if(acc.getUsername() == null || acc.getUsername().trim().isEmpty() 
             || acc.getPassword() == null || acc.getPassword().length() < 4){
             return ResponseEntity.status(400).build();
@@ -45,5 +47,27 @@ public class SocialMediaController  {
         
     }
 
+    @PostMapping("/login")
+    public @ResponseBody ResponseEntity<Account> loginValidation(@RequestBody Account account){
+        if(account.getUsername() == null || account.getPassword() == null){
+            return ResponseEntity.status(400).body(null);
+        }
+        Account loggedInAccount = accountService.loginUser(account.getUsername(), account.getPassword());
+        if(loggedInAccount != null){
+            return ResponseEntity.ok(loggedInAccount);
+        }
+        else{
+            return ResponseEntity.status(401).body(null);
+        }
+    }
+
+    @PostMapping("/messages")
+    public @ResponseBody ResponseEntity<Message> createMessageHandler(@RequestBody Message message){
+
+    }
+    
+
 
 }
+
+

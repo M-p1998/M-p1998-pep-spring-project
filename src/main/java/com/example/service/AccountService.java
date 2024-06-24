@@ -36,10 +36,22 @@ public class AccountService {
     }
 
     public Account findByUsername(String username) {
-        return accountRepo.findByUsername(username).orElse(null);
+        return accountRepo.findByUsername(username);
     }
 
     public Account save(Account account) {
         return accountRepo.save(account);
     }
+
+    public Account loginUser(String username, String password){
+        Account account = accountRepo.findByUsername(username);
+        if(account != null && account.getPassword().equals(password)){
+            return account;
+        }else{
+            return null;
+        }
+
+    }
 }
+
+
