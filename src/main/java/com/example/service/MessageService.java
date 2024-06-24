@@ -54,4 +54,14 @@ public class MessageService {
         
     }
 
+    public Message deleteMessage(int msgId){
+        Optional<Message> msg = msgRepo.findById(msgId);
+        if(msg.isPresent()){
+            Message msgToDelete = msg.get();
+            msgRepo.deleteById(msgId);
+            return msgToDelete;
+        }
+        return null;
+    }
+
 }
