@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.entity.Account;
+import com.example.entity.Message;
 import com.example.service.AccountService;
+import com.example.service.MessageService;
 
 /**
  * TODO: You will need to write your own endpoints and handlers for your controller using Spring. The endpoints you will need can be
@@ -64,10 +66,15 @@ public class SocialMediaController  {
     @PostMapping("/messages")
     public @ResponseBody ResponseEntity<Message> createMessageHandler(@RequestBody Message message){
 
+        Message createdMessage = messageService.createMessage(message);
+        if(createdMessage != null){
+            return ResponseEntity.ok(createdMessage);
+        }
+        else{
+            return ResponseEntity.status(400).body(null);
+        }
     }
-    
+
 
 
 }
-
-
