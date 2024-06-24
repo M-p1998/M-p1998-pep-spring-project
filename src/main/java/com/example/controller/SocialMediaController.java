@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -104,6 +105,17 @@ public class SocialMediaController  {
         }
         else{
             return ResponseEntity.ok(msg);
+        }
+    }
+
+    @PutMapping("/messages/{messageId}")
+    public @ResponseBody ResponseEntity<Message> updateMessageByIdHandler(@PathVariable int messageId, @RequestBody Message message){
+        Message msg = messageService.updatedMessage(messageId, message);
+        if(msg != null){
+            return ResponseEntity.status(200).body(msg);
+        }
+        else{
+            return ResponseEntity.status(400).body(null);
         }
     }
 

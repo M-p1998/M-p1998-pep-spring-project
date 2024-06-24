@@ -64,4 +64,18 @@ public class MessageService {
         return null;
     }
 
+    public Message updatedMessage(int msgId, Message MessageText){
+        if(MessageText.getMessageText() == null || MessageText.getMessageText().trim().isEmpty() || MessageText.getMessageText().length() > 255 ){
+            return null;
+        }
+        Optional<Message> message = msgRepo.findById(msgId);
+        if(message.isPresent()){
+            Message msg = message.get();
+            msg.setMessageText(MessageText.getMessageText());
+            return msgRepo.save(msg);
+        }else{
+            return null;
+        }
+    }
+
 }
