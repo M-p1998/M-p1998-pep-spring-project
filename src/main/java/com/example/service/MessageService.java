@@ -61,9 +61,12 @@ public class MessageService {
             Message msgToDelete = msg.get();
             msgRepo.deleteById(msgId);
             return msgToDelete;
+        }else{
+            return null;
         }
-        return null;
+
     }
+
 
     public Message updatedMessage(int msgId, Message MessageText){
         if(MessageText.getMessageText() == null || MessageText.getMessageText().trim().isEmpty() || MessageText.getMessageText().length() > 255 ){

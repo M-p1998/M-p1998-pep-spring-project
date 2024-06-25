@@ -98,15 +98,18 @@ public class SocialMediaController  {
     }
 
     @DeleteMapping("/messages/{messageId}")
-    public @ResponseBody ResponseEntity<Message> deleteMessageByIdHandler(@PathVariable int messageId){
-        Message msg = messageService.deleteMessage(messageId);
-        if(msg != null){
-            return ResponseEntity.status(200).body(msg);
+    public @ResponseBody ResponseEntity<Integer> deleteMessageByIdHandler(@PathVariable int messageId){
+        Message delMsg = messageService.deleteMessage(messageId);
+        if(delMsg != null){
+            // count the lines
+            String[] countLines = delMsg.getMessageText().split("\r|\n");
+            return ResponseEntity.status(200).body(countLines.length);
         }
         else{
-            return ResponseEntity.ok(msg);
+            return ResponseEntity.status(200).body(null);
         }
     }
+
 
     @PutMapping("/messages/{messageId}")
     public @ResponseBody ResponseEntity<Message> updateMessageByIdHandler(@PathVariable int messageId, @RequestBody Message message){
