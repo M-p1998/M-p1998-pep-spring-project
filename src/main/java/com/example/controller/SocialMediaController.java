@@ -7,9 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -110,12 +110,13 @@ public class SocialMediaController  {
         }
     }
 
-
-    @PutMapping("/messages/{messageId}")
-    public @ResponseBody ResponseEntity<Message> updateMessageByIdHandler(@PathVariable int messageId, @RequestBody Message message){
+    @PatchMapping("/messages/{messageId}")
+    public @ResponseBody ResponseEntity<Integer> updateMessageByIdHandler(@PathVariable int messageId, @RequestBody Message message){
         Message msg = messageService.updatedMessage(messageId, message);
         if(msg != null){
-            return ResponseEntity.status(200).body(msg);
+            // count the lines
+            String[] countLines = msg.getMessageText().split("\r|\n");
+            return ResponseEntity.status(200).body(countLines.length);
         }
         else{
             return ResponseEntity.status(400).body(null);

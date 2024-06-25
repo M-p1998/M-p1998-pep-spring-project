@@ -68,14 +68,14 @@ public class MessageService {
     }
 
 
-    public Message updatedMessage(int msgId, Message MessageText){
-        if(MessageText.getMessageText() == null || MessageText.getMessageText().trim().isEmpty() || MessageText.getMessageText().length() > 255 ){
+    public Message updatedMessage(int msgId, Message messageText){
+        if(messageText.getMessageText() == null || messageText.getMessageText().trim().isEmpty() || messageText.getMessageText().length() > 255 ){
             return null;
         }
         Optional<Message> message = msgRepo.findById(msgId);
         if(message.isPresent()){
             Message msg = message.get();
-            msg.setMessageText(MessageText.getMessageText());
+            msg.setMessageText(messageText.getMessageText());
             return msgRepo.save(msg);
         }else{
             return null;
@@ -90,9 +90,7 @@ public class MessageService {
                 getMsg.add(msg);
             }
         }
-
         return getMsg;
-
     }
 
 }
