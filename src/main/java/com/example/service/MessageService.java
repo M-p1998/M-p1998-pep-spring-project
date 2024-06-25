@@ -40,7 +40,7 @@ public class MessageService {
 
     }
 
-    public List<Message> getAllMessages(Message msg){
+    public List<Message> getAllMessages(){
         return msgRepo.findAll();
     }
     
